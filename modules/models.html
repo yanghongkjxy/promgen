@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Models &#8212; Promgen 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sender Plugins" href="sender.html" />
+    <link rel="prev" title="Sender Plugins" href="../dev/sender.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-promgen.models">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-promgen.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="promgen.models.Audit">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Audit</code><span class="sig-paren">(</span><em>id</em>, <em>body</em>, <em>created</em>, <em>content_type</em>, <em>object_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Audit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Audit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Exporter">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Exporter</code><span class="sig-paren">(</span><em>id</em>, <em>job</em>, <em>port</em>, <em>path</em>, <em>project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Exporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Exporter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Farm">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Farm</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>source</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Farm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Farm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Host">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Host</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>farm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Project">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>service</em>, <em>farm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Prometheus">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Prometheus</code><span class="sig-paren">(</span><em>id</em>, <em>shard</em>, <em>host</em>, <em>port</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Prometheus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Prometheus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Rule">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>clause</em>, <em>duration</em>, <em>service</em>, <em>enabled</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="promgen.models.Rule.copy_to">
+<code class="descname">copy_to</code><span class="sig-paren">(</span><em>service</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Rule.copy_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Rule.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a copy under a new service</p>
+<p>It&#8217;s important that we set pk to None so a new object is created, but we
+also need to ensure the new name is unique by appending some unique data
+to the end of the name</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.RuleAnnotation">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">RuleAnnotation</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>value</em>, <em>rule</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#RuleAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.RuleAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.RuleLabel">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">RuleLabel</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>value</em>, <em>rule</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#RuleLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.RuleLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Sender">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Sender</code><span class="sig-paren">(</span><em>id</em>, <em>sender</em>, <em>value</em>, <em>alias</em>, <em>content_type</em>, <em>object_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Sender"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Sender" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Service">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Service</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>shard</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Service" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.Shard">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">Shard</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#Shard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.Shard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="promgen.models.URL">
+<em class="property">class </em><code class="descclassname">promgen.models.</code><code class="descname">URL</code><span class="sig-paren">(</span><em>id</em>, <em>url</em>, <em>project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/models.html#URL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.models.URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../dev/sender.html" title="previous chapter">Sender Plugins</a></li>
+      <li>Next: <a href="sender.html" title="next chapter">Sender Plugins</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/models.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, LINE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

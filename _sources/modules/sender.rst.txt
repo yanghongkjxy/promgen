@@ -1,0 +1,8 @@
+Sender Plugins
+==============
+
+.. autoclass:: promgen.sender.SenderBase
+.. autoclass:: promgen.sender.email.SenderEmail
+.. autoclass:: promgen.sender.ikasan.SenderIkasan
+.. autoclass:: promgen.sender.linenotify.SenderLineNotify
+.. autoclass:: promgen.sender.webhook.SenderWebhook

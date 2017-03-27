@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Terms &#8212; Promgen 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running Promgen using Docker" href="docker.html" />
+    <link rel="prev" title="Welcome to Promgen’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="terms">
+<h1>Terms<a class="headerlink" href="#terms" title="Permalink to this headline">¶</a></h1>
+<img src="_images/graphviz-5f32566f0a2b47248fb0b584b6155c1d7896b4db.png" alt="digraph {
+   rankdir=RL;
+   { Service Prometheus} -&gt; Shard;
+   { Rule Sender Project} -&gt; Service;
+   { Rule Sender Exporter URL Farm} -&gt; Project;
+   Host -&gt; Farm;
+   { rank=same Project Rule };
+}" />
+<div class="section" id="shard">
+<h2>Shard<a class="headerlink" href="#shard" title="Permalink to this headline">¶</a></h2>
+<p>Shards are the top level object in Promgen which contain both Services and
+Prometheus servers</p>
+</div>
+<div class="section" id="service">
+<h2>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h2>
+<p>A service in Prometheus is a group of related Projects and are assigned to a
+specific shard</p>
+</div>
+<div class="section" id="projects">
+<h2>Projects<a class="headerlink" href="#projects" title="Permalink to this headline">¶</a></h2>
+<p>Projects are one of the main groupings for Promgen. This represents a typical
+monitoring target and brings together a collection of servers (Farm) with
+Exporters and URL endpoints</p>
+</div>
+<div class="section" id="farm">
+<h2>Farm<a class="headerlink" href="#farm" title="Permalink to this headline">¶</a></h2>
+<p>Farm is a group of servers</p>
+</div>
+<div class="section" id="sender">
+<h2>Sender<a class="headerlink" href="#sender" title="Permalink to this headline">¶</a></h2>
+<p>Senders are used for routing messages to a specific destination such as Email or
+LINE Notify</p>
+</div>
+<div class="section" id="rule">
+<h2>Rule<a class="headerlink" href="#rule" title="Permalink to this headline">¶</a></h2>
+<p>Rules represent the rules that Prometheus itself uses for alerting</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Terms</a><ul>
+<li><a class="reference internal" href="#shard">Shard</a></li>
+<li><a class="reference internal" href="#service">Service</a></li>
+<li><a class="reference internal" href="#projects">Projects</a></li>
+<li><a class="reference internal" href="#farm">Farm</a></li>
+<li><a class="reference internal" href="#sender">Sender</a></li>
+<li><a class="reference internal" href="#rule">Rule</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Promgen&#8217;s documentation!</a></li>
+      <li>Next: <a href="docker.html" title="next chapter">Running Promgen using Docker</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/terms.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, LINE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/terms.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
