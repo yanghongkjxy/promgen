@@ -57,15 +57,33 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/sender.html">Sender Plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dev/sender.html#developing-a-sender-plugin">Developing a Sender Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev/sender.html#notes-about-celery">Notes about Celery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Promgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#developing-a-sender-plugin">Developing a Sender Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#notes-about-celery">Notes about Celery</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/models.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/sender.html">Sender Plugins</a></li>
 </ul>
 </div>
+<img src="_images/graphviz-14b41dd76c3215c844851fde07cfa95e73ae3672.png" alt="digraph G {
+  Prometheus -&gt; Exporters [color=blue, label=&quot;(2) Scrapes targets&quot;]
+
+  subgraph cluster {
+    style = rounded;
+    Prometheus -&gt; AlertManager [color=red, label=&quot;(3) Generates Alerts&quot;]
+    AlertManager -&gt; Promgen [color=red, label=&quot;(4) Forwards Alerts&quot;]
+    Promgen -&gt; Prometheus [color=orange, label=&quot;(1) Generates Target and Rules&quot;]
+  }
+
+  subgraph senders {
+    style = rounded;
+    Promgen -&gt; Email
+    Promgen -&gt; Ikasan;
+    Promgen -&gt; LINENotify
+    Promgen -&gt; Webhook [label=&quot;(5) Routes to target based on labels&quot;];
+  }
+}" />
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -82,10 +100,38 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Welcome to Promgen&#8217;s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<h1 class="logo"><a href="#">Promgen</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=line&repo=promgen&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="terms.html">Terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Promgen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/sender.html">Sender Plugins</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://engineering.linecorp.com">LINE Engineering Blog</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -95,13 +141,6 @@
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">

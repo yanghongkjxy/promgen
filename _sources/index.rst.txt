@@ -12,9 +12,31 @@ Welcome to Promgen's documentation!
 
    terms
    docker
-   dev/sender
+   extending
    modules/models
    modules/sender
+
+
+.. graphviz::
+
+  digraph G {
+    Prometheus -> Exporters [color=blue, label="(2) Scrapes targets"]
+
+    subgraph cluster {
+      style = rounded;
+      Prometheus -> AlertManager [color=red, label="(3) Generates Alerts"]
+      AlertManager -> Promgen [color=red, label="(4) Forwards Alerts"]
+      Promgen -> Prometheus [color=orange, label="(1) Generates Target and Rules"]
+    }
+
+    subgraph senders {
+      style = rounded;
+      Promgen -> Email
+      Promgen -> Ikasan;
+      Promgen -> LINENotify
+      Promgen -> Webhook [label="(5) Routes to target based on labels"];
+    }
+  }
 
 
 Indices and tables

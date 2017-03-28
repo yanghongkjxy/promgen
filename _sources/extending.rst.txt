@@ -1,5 +1,5 @@
-Sender Plugins
-==============
+Extending Promgen
+=================
 
 Promgen uses sender plugins to route notifications to different services such as
 Email or LINE Notify
