@@ -26,7 +26,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Models" href="modules/models.html" />
     <link rel="prev" title="Running Promgen using Docker" href="docker.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -45,11 +44,10 @@
             
   <div class="section" id="extending-promgen">
 <h1>Extending Promgen<a class="headerlink" href="#extending-promgen" title="Permalink to this headline">¶</a></h1>
-<p>Promgen uses sender plugins to route notifications to different services such as
-Email or LINE Notify</p>
 <div class="section" id="developing-a-sender-plugin">
 <h2>Developing a Sender Plugin<a class="headerlink" href="#developing-a-sender-plugin" title="Permalink to this headline">¶</a></h2>
-<p>Sender plugins are registered using setuptools <a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#automatic-script-creation">entry_points</a>.</p>
+<p>Promgen uses sender plugins to route notifications to different services such as
+Email or LINE Notify. Sender plugins are registered using setuptools <a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#automatic-script-creation">entry_points</a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
     <span class="s1">&#39;promgen.sender&#39;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s1">&#39;sender_name = module.path.sender:SenderExample&#39;</span><span class="p">,</span>
@@ -120,19 +118,21 @@ instance of the class</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="terms.html">Terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Extending Promgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#developing-a-sender-plugin">Developing a Sender Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notes-about-celery">Notes about Celery</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/models.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/sender.html">Sender Plugins</a></li>
 </ul>
 
+
+<ul>
+  <li><a href="genindex.html">Index</a></li>
+  <li><a href="py-modindex.html">Module Index</a></li>
+</ul>
 
 <hr />
 <ul>
@@ -145,7 +145,6 @@ instance of the class</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="docker.html" title="previous chapter">Running Promgen using Docker</a></li>
-      <li>Next: <a href="modules/models.html" title="next chapter">Models</a></li>
   </ul></li>
 </ul>
 </div>

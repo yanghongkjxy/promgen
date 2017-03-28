@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Prometheus Interactions &#8212; Promgen 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-promgen.prometheus">
+<span id="prometheus-interactions"></span><h1>Prometheus Interactions<a class="headerlink" href="#module-promgen.prometheus" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="promgen.prometheus.check_rules">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">check_rules</code><span class="sig-paren">(</span><em>rules</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#check_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.check_rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.import_config">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">import_config</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#import_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.import_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.import_rules">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">import_rules</code><span class="sig-paren">(</span><em>config</em>, <em>default_service=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#import_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.import_rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.mute">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">mute</code><span class="sig-paren">(</span><em>duration</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#mute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.mute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a silence message to Alert Manager
+Duration should be sent in a format like 1m 2h 1d etc</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.mute_fromto">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">mute_fromto</code><span class="sig-paren">(</span><em>start</em>, <em>stop</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#mute_fromto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.mute_fromto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a silence message to Alert Manager
+Duration should be sent in a format like 2017-01-01 09:00</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.render_config">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">render_config</code><span class="sig-paren">(</span><em>service=None</em>, <em>project=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#render_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.render_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.render_rules">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">render_rules</code><span class="sig-paren">(</span><em>rules=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#render_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.render_rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="promgen.prometheus.render_urls">
+<code class="descclassname">promgen.prometheus.</code><code class="descname">render_urls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/prometheus.html#render_urls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.prometheus.render_urls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Promgen</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=line&repo=promgen&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../terms.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Running Promgen using Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Promgen</a></li>
+</ul>
+
+
+<ul>
+  <li><a href="genindex.html">Index</a></li>
+  <li><a href="py-modindex.html">Module Index</a></li>
+</ul>
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://engineering.linecorp.com">LINE Engineering Blog</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, LINE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/prometheus.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

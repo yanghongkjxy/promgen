@@ -53,6 +53,9 @@
 
 
 <div class="viewcode-block" id="SenderBase"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase">[docs]</a><span class="k">class</span> <span class="nc">SenderBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base Sender class</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">MAPPING</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">Project</span><span class="p">),</span>
         <span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="n">Service</span><span class="p">),</span>
@@ -83,7 +86,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="SenderBase.config"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.config">[docs]</a>    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plugin specific configuration</span>
 
@@ -94,9 +97,9 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">settings</span><span class="o">.</span><span class="n">PROMGEN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Undefined setting. Please check for </span><span class="si">%s</span><span class="s1"> under </span><span class="si">%s</span><span class="s1"> in settings.yml&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Undefined setting. Please check for </span><span class="si">%s</span><span class="s1"> under </span><span class="si">%s</span><span class="s1"> in settings.yml&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="SenderBase.send"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Send out an alert</span>
 
@@ -121,9 +124,9 @@
                             <span class="n">sent</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">sent</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;No senders configured for project or service&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sent</span>
+        <span class="k">return</span> <span class="n">sent</span></div>
 
-    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
+<div class="viewcode-block" id="SenderBase.test"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Send out test notification</span>
 
@@ -131,7 +134,7 @@
 <span class="sd">        parameters for our sender child classes</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Sending test message to </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__send</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;externalURL&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__send</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;externalURL&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span></div></div>
 </pre></div>
 
           </div>
@@ -156,15 +159,17 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../terms.html">Terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docker.html">Running Promgen using Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Promgen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/models.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/sender.html">Sender Plugins</a></li>
 </ul>
 
+
+<ul>
+  <li><a href="genindex.html">Index</a></li>
+  <li><a href="py-modindex.html">Module Index</a></li>
+</ul>
 
 <hr />
 <ul>

@@ -26,7 +26,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Models" href="models.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -42,36 +41,64 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="sender-plugins">
-<h1>Sender Plugins<a class="headerlink" href="#sender-plugins" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-promgen.sender">
+<span id="sender-plugins"></span><h1>Sender Plugins<a class="headerlink" href="#module-promgen.sender" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="promgen.sender.SenderBase">
 <em class="property">class </em><code class="descclassname">promgen.sender.</code><code class="descname">SenderBase</code><a class="reference internal" href="../_modules/promgen/sender.html#SenderBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.SenderBase" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Base Sender class</p>
+<dl class="method">
+<dt id="promgen.sender.SenderBase.config">
+<code class="descname">config</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/sender.html#SenderBase.config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.SenderBase.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin specific configuration</p>
+<p>This wraps our PROMGEN settings so that a plugin author does not need to
+be concerned with how the configuration files are handled but only about
+the specific key.</p>
+</dd></dl>
 
-<dl class="class">
+<dl class="method">
+<dt id="promgen.sender.SenderBase.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/sender.html#SenderBase.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.SenderBase.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out an alert</p>
+<p>This handles looping through the alerts from Alert Manager and checks
+to see if there are any notification senders configured for the
+combination of project/service and sender type.</p>
+<p>See tests/examples/alertmanager.json for an example payload</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="promgen.sender.SenderBase.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>target</em>, <em>alert</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/sender.html#SenderBase.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.SenderBase.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out test notification</p>
+<p>Combine a simple test alert from our view, with the remaining required
+parameters for our sender child classes</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-promgen.sender.email"></span><dl class="class">
 <dt id="promgen.sender.email.SenderEmail">
 <em class="property">class </em><code class="descclassname">promgen.sender.email.</code><code class="descname">SenderEmail</code><a class="reference internal" href="../_modules/promgen/sender/email.html#SenderEmail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.email.SenderEmail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple plaintext Email notification</p>
 </dd></dl>
 
-<dl class="class">
+<span class="target" id="module-promgen.sender.ikasan"></span><dl class="class">
 <dt id="promgen.sender.ikasan.SenderIkasan">
 <em class="property">class </em><code class="descclassname">promgen.sender.ikasan.</code><code class="descname">SenderIkasan</code><a class="reference internal" href="../_modules/promgen/sender/ikasan.html#SenderIkasan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.ikasan.SenderIkasan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Send messages to Ikasan</p>
+<dd><p>Send messages to Hipchat using Ikasan Hipchat bridge</p>
+<p><a class="reference external" href="https://github.com/studio3104/ikasan">https://github.com/studio3104/ikasan</a></p>
 </dd></dl>
 
-<dl class="class">
+<span class="target" id="module-promgen.sender.linenotify"></span><dl class="class">
 <dt id="promgen.sender.linenotify.SenderLineNotify">
 <em class="property">class </em><code class="descclassname">promgen.sender.linenotify.</code><code class="descname">SenderLineNotify</code><a class="reference internal" href="../_modules/promgen/sender/linenotify.html#SenderLineNotify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.linenotify.SenderLineNotify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send messages to line notify</p>
+<p><a class="reference external" href="https://notify-bot.line.me/en/">https://notify-bot.line.me/en/</a></p>
 </dd></dl>
 
-<dl class="class">
-<dt id="promgen.sender.webhook.SenderWebhook">
-<em class="property">class </em><code class="descclassname">promgen.sender.webhook.</code><code class="descname">SenderWebhook</code><a class="reference internal" href="../_modules/promgen/sender/webhook.html#SenderWebhook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.sender.webhook.SenderWebhook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<span class="target" id="module-promgen.sender.webhook"></span><p>Simple webhook bridge
+Accepts alert json from Alert Manager and then POSTs individual alerts to
+configured webhook destinations</p>
 </div>
 
 
@@ -97,15 +124,17 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../terms.html">Terms</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Running Promgen using Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Promgen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Sender Plugins</a></li>
 </ul>
 
+
+<ul>
+  <li><a href="genindex.html">Index</a></li>
+  <li><a href="py-modindex.html">Module Index</a></li>
+</ul>
 
 <hr />
 <ul>
@@ -117,7 +146,6 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="models.html" title="previous chapter">Models</a></li>
   </ul></li>
 </ul>
 </div>

@@ -1,16 +1,11 @@
 Extending Promgen
 =================
 
-Promgen uses sender plugins to route notifications to different services such as
-Email or LINE Notify
-
-
 Developing a Sender Plugin
 --------------------------
 
-
-Sender plugins are registered using setuptools entry_points_.
-
+Promgen uses sender plugins to route notifications to different services such as
+Email or LINE Notify. Sender plugins are registered using setuptools entry_points_.
 
 .. code-block:: python
 

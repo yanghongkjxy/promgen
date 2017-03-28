@@ -8,13 +8,11 @@ Welcome to Promgen's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
    terms
    docker
    extending
-   modules/models
-   modules/sender
 
 
 .. graphviz::
@@ -37,11 +35,3 @@ Welcome to Promgen's documentation!
       Promgen -> Webhook [label="(5) Routes to target based on labels"];
     }
   }
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
