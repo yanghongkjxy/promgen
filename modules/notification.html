@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Notification Modules &#8212; Promgen 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prometheus Interactions" href="prometheus.html" />
+    <link rel="prev" title="Promgen Models" href="models.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-promgen.notification">
+<span id="notification-modules"></span><h1>Notification Modules<a class="headerlink" href="#module-promgen.notification" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="promgen.notification.NotificationBase">
+<em class="property">class </em><code class="descclassname">promgen.notification.</code><code class="descname">NotificationBase</code><a class="reference internal" href="../_modules/promgen/notification.html#NotificationBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.NotificationBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base Notification class</p>
+<dl class="method">
+<dt id="promgen.notification.NotificationBase.config">
+<code class="descname">config</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/notification.html#NotificationBase.config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.NotificationBase.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin specific configuration</p>
+<p>This wraps our PROMGEN settings so that a plugin author does not need to
+be concerned with how the configuration files are handled but only about
+the specific key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="promgen.notification.NotificationBase.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/notification.html#NotificationBase.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.NotificationBase.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out an alert</p>
+<p>This handles looping through the alerts from Alert Manager and checks
+to see if there are any notification senders configured for the
+combination of project/service and sender type.</p>
+<p>See tests/examples/alertmanager.json for an example payload</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="promgen.notification.NotificationBase.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>target</em>, <em>alert</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/notification.html#NotificationBase.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.NotificationBase.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out test notification</p>
+<p>Combine a simple test alert from our view, with the remaining required
+parameters for our sender child classes</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-promgen.notification.email"></span><dl class="class">
+<dt id="promgen.notification.email.NotificationEmail">
+<em class="property">class </em><code class="descclassname">promgen.notification.email.</code><code class="descname">NotificationEmail</code><a class="reference internal" href="../_modules/promgen/notification/email.html#NotificationEmail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.email.NotificationEmail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple plaintext Email notification</p>
+</dd></dl>
+
+<span class="target" id="module-promgen.notification.ikasan"></span><dl class="class">
+<dt id="promgen.notification.ikasan.NotificationIkasan">
+<em class="property">class </em><code class="descclassname">promgen.notification.ikasan.</code><code class="descname">NotificationIkasan</code><a class="reference internal" href="../_modules/promgen/notification/ikasan.html#NotificationIkasan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.ikasan.NotificationIkasan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send messages to Hipchat using Ikasan Hipchat bridge</p>
+<p><a class="reference external" href="https://github.com/studio3104/ikasan">https://github.com/studio3104/ikasan</a></p>
+</dd></dl>
+
+<span class="target" id="module-promgen.notification.linenotify"></span><dl class="class">
+<dt id="promgen.notification.linenotify.NotificationLineNotify">
+<em class="property">class </em><code class="descclassname">promgen.notification.linenotify.</code><code class="descname">NotificationLineNotify</code><a class="reference internal" href="../_modules/promgen/notification/linenotify.html#NotificationLineNotify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.notification.linenotify.NotificationLineNotify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send messages to line notify</p>
+<p><a class="reference external" href="https://notify-bot.line.me/en/">https://notify-bot.line.me/en/</a></p>
+</dd></dl>
+
+<span class="target" id="module-promgen.notification.webhook"></span><p>Simple webhook bridge
+Accepts alert json from Alert Manager and then POSTs individual alerts to
+configured webhook destinations</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Promgen</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=line&repo=promgen&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../terms.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Running Promgen using Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin/notification.html">Notification Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin/discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Promgen Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notification Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prometheus.html">Prometheus Interactions</a></li>
+</ul>
+
+
+<ul>
+  <li><a href="genindex.html">Index</a></li>
+  <li><a href="py-modindex.html">Module Index</a></li>
+</ul>
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://engineering.linecorp.com">LINE Engineering Blog</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="models.html" title="previous chapter">Promgen Models</a></li>
+      <li>Next: <a href="prometheus.html" title="next chapter">Prometheus Interactions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, LINE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/notification.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

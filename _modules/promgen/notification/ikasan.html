@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>promgen.sender.webhook &#8212; Promgen 1.0 documentation</title>
+    <title>promgen.notification.ikasan &#8212; Promgen 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -41,33 +41,47 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for promgen.sender.webhook</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Simple webhook bridge</span>
-<span class="sd">Accepts alert json from Alert Manager and then POSTs individual alerts to</span>
-<span class="sd">configured webhook destinations</span>
-<span class="sd">&#39;&#39;&#39;</span>
+  <h1>Source code for promgen.notification.ikasan</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="k">import</span> <span class="n">render_to_string</span>
 
 <span class="kn">from</span> <span class="nn">promgen</span> <span class="k">import</span> <span class="n">util</span>
 <span class="kn">from</span> <span class="nn">promgen.celery</span> <span class="k">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">celery</span>
-<span class="kn">from</span> <span class="nn">promgen.sender</span> <span class="k">import</span> <span class="n">SenderBase</span>
+<span class="kn">from</span> <span class="nn">promgen.notification</span> <span class="k">import</span> <span class="n">NotificationBase</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SenderWebhook"><a class="viewcode-back" href="../../../modules/sender.html#promgen.sender.webhook.SenderWebhook">[docs]</a><span class="k">class</span> <span class="nc">SenderWebhook</span><span class="p">(</span><span class="n">SenderBase</span><span class="p">):</span>
+<div class="viewcode-block" id="NotificationIkasan"><a class="viewcode-back" href="../../../modules/notification.html#promgen.notification.ikasan.NotificationIkasan">[docs]</a><span class="k">class</span> <span class="nc">NotificationIkasan</span><span class="p">(</span><span class="n">NotificationBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Send messages to Hipchat using Ikasan Hipchat bridge</span>
+
+<span class="sd">    https://github.com/studio3104/ikasan</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="nd">@celery</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_send</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">alert</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_send</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">alert</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">NotificationIkasan</span><span class="p">()</span>  <span class="c1"># Rebind self</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">)</span>
+
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;prometheus&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">[</span><span class="s1">&#39;generatorURL&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;alertmanager&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;externalURL&#39;</span><span class="p">]</span>
+            <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="n">channel</span><span class="p">,</span>
+            <span class="s1">&#39;message_format&#39;</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="p">{}))</span>
-        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;annotations&#39;</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">if</span> <span class="n">alert</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;resolved&#39;</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s1">&#39;promgen/sender/ikasan.resolved.txt&#39;</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s1">&#39;alert&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">,</span>
+                <span class="s1">&#39;externalURL&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;externalURL&#39;</span><span class="p">],</span>
+            <span class="p">})</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s1">&#39;promgen/sender/ikasan.body.txt&#39;</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s1">&#39;alert&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">,</span>
+                <span class="s1">&#39;externalURL&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;externalURL&#39;</span><span class="p">],</span>
+            <span class="p">})</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
         <span class="n">util</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 </pre></div>
@@ -121,7 +135,7 @@
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../sender.html">promgen.sender</a><ul>
+  <li><a href="../notification.html">promgen.notification</a><ul>
   </ul></li>
   </ul></li>
   </ul></li>

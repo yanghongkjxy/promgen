@@ -6,14 +6,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Extending Promgen &#8212; Promgen 1.0 documentation</title>
+    <title>Notification Plugin &#8212; Promgen 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -21,14 +21,15 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Running Promgen using Docker" href="docker.html" />
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discovery Plugin" href="discovery.html" />
+    <link rel="prev" title="Running Promgen using Docker" href="../docker.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -42,8 +43,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="extending-promgen">
-<h1>Extending Promgen<a class="headerlink" href="#extending-promgen" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="notification-plugin">
+<h1>Notification Plugin<a class="headerlink" href="#notification-plugin" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="developing-a-sender-plugin">
 <h2>Developing a Sender Plugin<a class="headerlink" href="#developing-a-sender-plugin" title="Permalink to this headline">¶</a></h2>
 <p>Promgen uses sender plugins to route notifications to different services such as
@@ -101,7 +102,7 @@ instance of the class</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Promgen</a></h1>
+<h1 class="logo"><a href="../index.html">Promgen</a></h1>
 
 
 
@@ -119,13 +120,17 @@ instance of the class</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="terms.html">Glossary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending Promgen</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../terms.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Running Promgen using Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notification Plugin</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#developing-a-sender-plugin">Developing a Sender Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notes-about-celery">Notes about Celery</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/models.html">Promgen Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/notification.html">Notification Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/prometheus.html">Prometheus Interactions</a></li>
 </ul>
 
 
@@ -143,14 +148,15 @@ instance of the class</p>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="docker.html" title="previous chapter">Running Promgen using Docker</a></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../docker.html" title="previous chapter">Running Promgen using Docker</a></li>
+      <li>Next: <a href="discovery.html" title="next chapter">Discovery Plugin</a></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -166,11 +172,11 @@ instance of the class</p>
       &copy;2017, LINE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/extending.rst.txt"
+      <a href="../_sources/plugin/notification.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

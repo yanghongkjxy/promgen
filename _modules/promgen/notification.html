@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>promgen.sender &#8212; Promgen 1.0 documentation</title>
+    <title>promgen.notification &#8212; Promgen 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -41,7 +41,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for promgen.sender</h1><div class="highlight"><pre>
+  <h1>Source code for promgen.notification</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 
@@ -52,9 +52,9 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SenderBase"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase">[docs]</a><span class="k">class</span> <span class="nc">SenderBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="NotificationBase"><a class="viewcode-back" href="../../modules/notification.html#promgen.notification.NotificationBase">[docs]</a><span class="k">class</span> <span class="nc">NotificationBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Base Sender class</span>
+<span class="sd">    Base Notification class</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">MAPPING</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">Project</span><span class="p">),</span>
@@ -86,7 +86,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-<div class="viewcode-block" id="SenderBase.config"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.config">[docs]</a>    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="NotificationBase.config"><a class="viewcode-back" href="../../modules/notification.html#promgen.notification.NotificationBase.config">[docs]</a>    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plugin specific configuration</span>
 
@@ -99,7 +99,7 @@
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Undefined setting. Please check for </span><span class="si">%s</span><span class="s1"> under </span><span class="si">%s</span><span class="s1"> in settings.yml&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SenderBase.send"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="NotificationBase.send"><a class="viewcode-back" href="../../modules/notification.html#promgen.notification.NotificationBase.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Send out an alert</span>
 
@@ -126,7 +126,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;No senders configured for project or service&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sent</span></div>
 
-<div class="viewcode-block" id="SenderBase.test"><a class="viewcode-back" href="../../modules/sender.html#promgen.sender.SenderBase.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
+<div class="viewcode-block" id="NotificationBase.test"><a class="viewcode-back" href="../../modules/notification.html#promgen.notification.NotificationBase.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Send out test notification</span>
 

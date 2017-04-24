@@ -53,6 +53,7 @@
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -75,7 +76,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/sender.html#promgen.sender.SenderBase.config">config() (promgen.sender.SenderBase method)</a>
+      <li><a href="modules/notification.html#promgen.notification.NotificationBase.config">config() (promgen.notification.NotificationBase method)</a>
 </li>
       <li><a href="modules/models.html#promgen.models.Rule.copy_to">copy_to() (promgen.models.Rule method)</a>
 </li>
@@ -130,6 +131,22 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/notification.html#promgen.notification.NotificationBase">NotificationBase (class in promgen.notification)</a>
+</li>
+      <li><a href="modules/notification.html#promgen.notification.email.NotificationEmail">NotificationEmail (class in promgen.notification.email)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/notification.html#promgen.notification.ikasan.NotificationIkasan">NotificationIkasan (class in promgen.notification.ikasan)</a>
+</li>
+      <li><a href="modules/notification.html#promgen.notification.linenotify.NotificationLineNotify">NotificationLineNotify (class in promgen.notification.linenotify)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -139,19 +156,19 @@
 </li>
       <li><a href="modules/models.html#module-promgen.models">promgen.models (module)</a>
 </li>
-      <li><a href="modules/prometheus.html#module-promgen.prometheus">promgen.prometheus (module)</a>
+      <li><a href="modules/notification.html#module-promgen.notification">promgen.notification (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/sender.html#module-promgen.sender">promgen.sender (module)</a>
+      <li><a href="modules/notification.html#module-promgen.notification.email">promgen.notification.email (module)</a>
 </li>
-      <li><a href="modules/sender.html#module-promgen.sender.email">promgen.sender.email (module)</a>
+      <li><a href="modules/notification.html#module-promgen.notification.ikasan">promgen.notification.ikasan (module)</a>
 </li>
-      <li><a href="modules/sender.html#module-promgen.sender.ikasan">promgen.sender.ikasan (module)</a>
+      <li><a href="modules/notification.html#module-promgen.notification.linenotify">promgen.notification.linenotify (module)</a>
 </li>
-      <li><a href="modules/sender.html#module-promgen.sender.linenotify">promgen.sender.linenotify (module)</a>
+      <li><a href="modules/notification.html#module-promgen.notification.webhook">promgen.notification.webhook (module)</a>
 </li>
-      <li><a href="modules/sender.html#module-promgen.sender.webhook">promgen.sender.webhook (module)</a>
+      <li><a href="modules/prometheus.html#module-promgen.prometheus">promgen.prometheus (module)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -179,20 +196,12 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/sender.html#promgen.sender.SenderBase.send">send() (promgen.sender.SenderBase method)</a>
+      <li><a href="modules/notification.html#promgen.notification.NotificationBase.send">send() (promgen.notification.NotificationBase method)</a>
 </li>
       <li><a href="modules/models.html#promgen.models.Sender">Sender (class in promgen.models)</a>
 </li>
-      <li><a href="modules/sender.html#promgen.sender.SenderBase">SenderBase (class in promgen.sender)</a>
-</li>
-      <li><a href="modules/sender.html#promgen.sender.email.SenderEmail">SenderEmail (class in promgen.sender.email)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/sender.html#promgen.sender.ikasan.SenderIkasan">SenderIkasan (class in promgen.sender.ikasan)</a>
-</li>
-      <li><a href="modules/sender.html#promgen.sender.linenotify.SenderLineNotify">SenderLineNotify (class in promgen.sender.linenotify)</a>
-</li>
       <li><a href="modules/models.html#promgen.models.Service">Service (class in promgen.models)</a>
 </li>
       <li><a href="modules/models.html#promgen.models.Shard">Shard (class in promgen.models)</a>
@@ -203,7 +212,7 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/sender.html#promgen.sender.SenderBase.test">test() (promgen.sender.SenderBase method)</a>
+      <li><a href="modules/notification.html#promgen.notification.NotificationBase.test">test() (promgen.notification.NotificationBase method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -243,7 +252,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Promgen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugin/notification.html">Notification Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugin/discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/models.html">Promgen Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/notification.html">Notification Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/prometheus.html">Prometheus Interactions</a></li>
 </ul>
 
 
@@ -283,7 +296,7 @@
       &copy;2017, LINE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
