@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Glossary &#8212; Promgen 1.0 documentation</title>
+    <title>Glossary &#8212; Promgen 0.11.dev documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0',
+        VERSION:     '0.11.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -45,11 +45,11 @@
             
   <div class="section" id="glossary">
 <h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
-<img src="_images/graphviz-5f32566f0a2b47248fb0b584b6155c1d7896b4db.png" alt="digraph {
+<img src="_images/graphviz-0a5a5f14f41ac137d044e0b544f312a487d77a15.png" alt="digraph {
    rankdir=RL;
    { Service Prometheus} -&gt; Shard;
-   { Rule Sender Project} -&gt; Service;
-   { Rule Sender Exporter URL Farm} -&gt; Project;
+   { Rule Notifier Project} -&gt; Service;
+   { Rule Notifier Exporter URL Farm} -&gt; Project;
    Host -&gt; Farm;
    { rank=same Project Rule };
 }" />
@@ -71,11 +71,11 @@ Exporters and URL endpoints</p>
 </div>
 <div class="section" id="farm">
 <h2>Farm<a class="headerlink" href="#farm" title="Permalink to this headline">¶</a></h2>
-<p>Farm is a group of servers</p>
+<p>Farm is a group of servers. Farms may be updated using <a class="reference internal" href="plugin/discovery.html"><span class="doc">discovery plugins</span></a></p>
 </div>
-<div class="section" id="sender">
-<h2>Sender<a class="headerlink" href="#sender" title="Permalink to this headline">¶</a></h2>
-<p>Senders are used for routing messages to a specific destination such as Email or
+<div class="section" id="notifiers">
+<h2>Notifiers<a class="headerlink" href="#notifiers" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="plugin/notification.html"><span class="doc">Notifiers</span></a> are used for routing messages to a specific destination such as Email or
 LINE Notify</p>
 </div>
 <div class="section" id="rule">
@@ -113,13 +113,18 @@ LINE Notify</p>
 <li class="toctree-l2"><a class="reference internal" href="#service">Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#projects">Projects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#farm">Farm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sender">Sender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notifiers">Notifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rule">Rule</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugin/notification.html">Notification Plugin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugin/discovery.html">Discovery Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plugin/discovery.html">Writing Discovery Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugin/notification.html">Writing Notification Plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/discovery.html">Discovery Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/models.html">Promgen Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/notification.html">Notification Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/prometheus.html">Prometheus Interactions</a></li>

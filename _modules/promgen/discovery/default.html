@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>promgen.sender.webhook &#8212; Promgen 0.11.dev documentation</title>
+    <title>promgen.discovery.default &#8212; Promgen 0.11.dev documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -41,35 +41,37 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for promgen.sender.webhook</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Simple webhook bridge</span>
-<span class="sd">Accepts alert json from Alert Manager and then POSTs individual alerts to</span>
-<span class="sd">configured webhook destinations</span>
-<span class="sd">&#39;&#39;&#39;</span>
+  <h1>Source code for promgen.discovery.default</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 LINE Corporation</span>
+<span class="c1"># These sources are released under the terms of the MIT license: see LICENSE</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">promgen</span> <span class="k">import</span> <span class="n">util</span>
-<span class="kn">from</span> <span class="nn">promgen.celery</span> <span class="k">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">celery</span>
-<span class="kn">from</span> <span class="nn">promgen.sender</span> <span class="k">import</span> <span class="n">SenderBase</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">get_object_or_404</span>
+
+<span class="kn">from</span> <span class="nn">promgen</span> <span class="k">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">promgen.discovery</span> <span class="k">import</span> <span class="n">DiscoveryBase</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SenderWebhook"><a class="viewcode-back" href="../../../modules/sender.html#promgen.sender.webhook.SenderWebhook">[docs]</a><span class="k">class</span> <span class="nc">SenderWebhook</span><span class="p">(</span><span class="n">SenderBase</span><span class="p">):</span>
-    <span class="nd">@celery</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_send</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">alert</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;prometheus&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">[</span><span class="s1">&#39;generatorURL&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;alertmanager&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;externalURL&#39;</span><span class="p">]</span>
-        <span class="p">}</span>
+<div class="viewcode-block" id="DiscoveryPromgen"><a class="viewcode-back" href="../../../modules/discovery.html#promgen.discovery.default.DiscoveryPromgen">[docs]</a><span class="k">class</span> <span class="nc">DiscoveryPromgen</span><span class="p">(</span><span class="n">DiscoveryBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Promgen local database discovery plugin</span>
 
-        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="p">{}))</span>
-        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;annotations&#39;</span><span class="p">,</span> <span class="p">{}))</span>
-        <span class="n">util</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+<span class="sd">    This is the default discovery plugin for farms and hosts stored locally in</span>
+<span class="sd">    promgen&#39;s database. They are queried directly from Django&#39;s ORM</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="DiscoveryPromgen.fetch"><a class="viewcode-back" href="../../../modules/discovery.html#promgen.discovery.default.DiscoveryPromgen.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">farm_name</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Fetch list of hosts for a farm from the local database&#39;&#39;&#39;</span>
+        <span class="n">farm</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Farm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">farm_name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">Host</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">farm</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span></div>
+
+<div class="viewcode-block" id="DiscoveryPromgen.farms"><a class="viewcode-back" href="../../../modules/discovery.html#promgen.discovery.default.DiscoveryPromgen.farms">[docs]</a>    <span class="k">def</span> <span class="nf">farms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Fetch farms from local database&#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">farm</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">Farm</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">FARM_DEFAULT</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">farm</span><span class="o">.</span><span class="n">name</span></div></div>
 </pre></div>
 
           </div>
@@ -126,8 +128,6 @@
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../sender.html">promgen.sender</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>

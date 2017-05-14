@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Discovery Plugin &#8212; Promgen 1.0 documentation</title>
+    <title>Writing Discovery Plugins &#8212; Promgen 0.11.dev documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0',
+        VERSION:     '0.11.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Promgen Models" href="../modules/models.html" />
-    <link rel="prev" title="Notification Plugin" href="notification.html" />
+    <link rel="next" title="Writing Notification Plugins" href="notification.html" />
+    <link rel="prev" title="Running Promgen using Docker" href="../docker.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -43,10 +43,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="discovery-plugin">
-<h1>Discovery Plugin<a class="headerlink" href="#discovery-plugin" title="Permalink to this headline">¶</a></h1>
-<p>These are used to bridge a server manifest from an external tool into one that
-Promgen can use</p>
+  <div class="section" id="writing-discovery-plugins">
+<h1>Writing Discovery Plugins<a class="headerlink" href="#writing-discovery-plugins" title="Permalink to this headline">¶</a></h1>
+<p>Promgen uses discovery plugins to bridge non-natively supported discovery
+mechanisms to Prometheus&#8217;s file configuration format. They should be registered
+using setuptools <a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#automatic-script-creation">entry_points</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;promgen.discovery&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;example = module.path.discovery:DiscoveryExample&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Plugins should inherit from DiscoveryBase, should implement <em>farms()</em> and
+<em>fetch()</em> methods</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">promgen.discovery</span> <span class="kn">import</span> <span class="n">DiscoveryBase</span>
+
+<span class="n">EXAMPLE</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;Farm-A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;AB&#39;</span><span class="p">,</span> <span class="s1">&#39;AC&#39;</span><span class="p">]</span>
+  <span class="s1">&#39;Farm-B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;BA&#39;</span><span class="p">,</span> <span class="s1">&#39;BB&#39;</span><span class="p">,</span> <span class="s1">&#39;BC&#39;</span><span class="p">,</span> <span class="s1">&#39;BD&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">DiscoveryExample</span><span class="p">(</span><span class="n">DiscoveryBase</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">farm_name</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">EXAMPLE</span><span class="p">[</span><span class="n">farm_name</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">farms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">EXAMPLE</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -72,11 +97,16 @@ Promgen can use</p>
 
 
 <h3>Navigation</h3>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notification.html">Notification Plugin</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Discovery Plugin</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Discovery Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification.html">Writing Notification Plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/discovery.html">Discovery Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/models.html">Promgen Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/notification.html">Notification Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/prometheus.html">Prometheus Interactions</a></li>
@@ -98,8 +128,8 @@ Promgen can use</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="notification.html" title="previous chapter">Notification Plugin</a></li>
-      <li>Next: <a href="../modules/models.html" title="next chapter">Promgen Models</a></li>
+      <li>Previous: <a href="../docker.html" title="previous chapter">Running Promgen using Docker</a></li>
+      <li>Next: <a href="notification.html" title="next chapter">Writing Notification Plugins</a></li>
   </ul></li>
 </ul>
 </div>

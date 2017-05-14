@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview: module code &#8212; Promgen 0.11.dev documentation</title>
+    <title>Discovery Plugins &#8212; Promgen 0.11.dev documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,6 +26,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Promgen Models" href="models.html" />
+    <link rel="prev" title="Writing Notification Plugins" href="../plugin/notification.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -41,25 +43,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="django/contrib/contenttypes/fields.html">django.contrib.contenttypes.fields</a></li>
-<li><a href="django/db/models/fields/related_descriptors.html">django.db.models.fields.related_descriptors</a></li>
-<li><a href="django/db/models/manager.html">django.db.models.manager</a></li>
-<li><a href="django/db/models/query_utils.html">django.db.models.query_utils</a></li>
-<li><a href="django/utils/functional.html">django.utils.functional</a></li>
-<li><a href="promgen/discovery/default.html">promgen.discovery.default</a></li>
-<li><a href="promgen/models.html">promgen.models</a></li>
-<li><a href="promgen/notification.html">promgen.notification</a></li>
-<ul><li><a href="promgen/notification/email.html">promgen.notification.email</a></li>
-<li><a href="promgen/notification/ikasan.html">promgen.notification.ikasan</a></li>
-<li><a href="promgen/notification/linenotify.html">promgen.notification.linenotify</a></li>
-</ul><li><a href="promgen/prometheus.html">promgen.prometheus</a></li>
-<li><a href="promgen/sender.html">promgen.sender</a></li>
-<ul><li><a href="promgen/sender/email.html">promgen.sender.email</a></li>
-<li><a href="promgen/sender/ikasan.html">promgen.sender.ikasan</a></li>
-<li><a href="promgen/sender/linenotify.html">promgen.sender.linenotify</a></li>
-<li><a href="promgen/sender/webhook.html">promgen.sender.webhook</a></li>
-</ul></ul>
+  <div class="section" id="module-promgen.discovery.default">
+<span id="discovery-plugins"></span><h1>Discovery Plugins<a class="headerlink" href="#module-promgen.discovery.default" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="promgen.discovery.default.DiscoveryPromgen">
+<em class="property">class </em><code class="descclassname">promgen.discovery.default.</code><code class="descname">DiscoveryPromgen</code><a class="reference internal" href="../_modules/promgen/discovery/default.html#DiscoveryPromgen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.discovery.default.DiscoveryPromgen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Promgen local database discovery plugin</p>
+<p>This is the default discovery plugin for farms and hosts stored locally in
+promgen&#8217;s database. They are queried directly from Django&#8217;s ORM</p>
+<dl class="method">
+<dt id="promgen.discovery.default.DiscoveryPromgen.farms">
+<code class="descname">farms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/discovery/default.html#DiscoveryPromgen.farms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.discovery.default.DiscoveryPromgen.farms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch farms from local database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="promgen.discovery.default.DiscoveryPromgen.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>farm_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/promgen/discovery/default.html#DiscoveryPromgen.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#promgen.discovery.default.DiscoveryPromgen.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch list of hosts for a farm from the local database</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
 
           </div>
         </div>
@@ -91,11 +98,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../plugin/discovery.html">Writing Discovery Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../plugin/notification.html">Writing Notification Plugins</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules/discovery.html">Discovery Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/models.html">Promgen Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/notification.html">Notification Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/prometheus.html">Prometheus Interactions</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Discovery Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Promgen Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification.html">Notification Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prometheus.html">Prometheus Interactions</a></li>
 </ul>
 
 
@@ -114,6 +121,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../plugin/notification.html" title="previous chapter">Writing Notification Plugins</a></li>
+      <li>Next: <a href="models.html" title="next chapter">Promgen Models</a></li>
   </ul></li>
 </ul>
 </div>
@@ -138,6 +147,9 @@
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
+      |
+      <a href="../_sources/modules/discovery.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
 
     

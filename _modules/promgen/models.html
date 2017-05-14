@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>promgen.models &#8212; Promgen 1.0 documentation</title>
+    <title>promgen.models &#8212; Promgen 0.11.dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0',
+        VERSION:     '0.11.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,10 @@
           <div class="body" role="main">
             
   <h1>Source code for promgen.models</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="c1"># Copyright (c) 2017 LINE Corporation</span>
+<span class="c1"># These sources are released under the terms of the MIT license: see LICENSE</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
@@ -428,8 +431,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../terms.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../docker.html">Running Promgen using Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../plugin/notification.html">Notification Plugin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../plugin/discovery.html">Discovery Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/discovery.html">Writing Discovery Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/notification.html">Writing Notification Plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discovery.html">Discovery Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/models.html">Promgen Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/notification.html">Notification Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/prometheus.html">Prometheus Interactions</a></li>
