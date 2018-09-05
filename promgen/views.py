@@ -7,16 +7,20 @@ import datetime
 import json
 import logging
 import platform
+import re
 import time
 from itertools import chain
 from urllib.parse import urljoin
 
+import promgen.templatetags.promgen as macro
 import requests
 from dateutil import parser
 from django import forms as django_forms
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
 from django.db.utils import IntegrityError
@@ -29,15 +33,33 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.views.generic import DetailView, ListView, UpdateView, View
-from django.views.generic.base import ContextMixin, RedirectView
+from django.views.generic.base import ContextMixin, RedirectView, TemplateView
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import DeleteView, FormView
 from prometheus_client import Gauge, generate_latest
-
-import promgen.templatetags.promgen as macro
 from promgen import (celery, discovery, forms, models, plugins, prometheus,
-                     signals, util, version)
+                     signals, tasks, util, version)
+from promgen.shortcuts import resolve_domain
 
 logger = logging.getLogger(__name__)
+
+
+class PromgenPermissionMixin(PermissionRequiredMixin):
+    def handle_no_permission(self):
+        messages.warning(self.request, self.get_permission_denied_message())
+        return redirect_to_login(
+            self.request.get_full_path(),
+            self.get_login_url(),
+            self.get_redirect_field_name(),
+        )
+
+
+class ShardMixin(ContextMixin):
+    def get_context_data(self, **kwargs):
+        context = super(ShardMixin, self).get_context_data(**kwargs)
+        if 'pk' in self.kwargs:
+            context['object'] = context['shard'] = get_object_or_404(models.Shard, id=self.kwargs['pk'])
+        return context
 
 
 class ProjectMixin(ContextMixin):
@@ -278,19 +300,46 @@ class ExporterToggle(LoginRequiredMixin, View):
         return JsonResponse({'redirect': exporter.project.get_absolute_url()})
 
 
-class RuleDelete(LoginRequiredMixin, DeleteView):
+class RuleDelete(PromgenPermissionMixin, DeleteView):
     model = models.Rule
+
+    def get_permission_denied_message(self):
+        return 'Unable to delete rule %s. User lacks permission' % self.object
+
+    def get_permission_required(self):
+        # In the case of rules, we want to make sure the user has permission
+        # to delete the rule itself, but also permission to change the linked object
+        self.object = self.get_object()
+        obj = self.object._meta
+        tgt = self.object.content_object._meta
+
+        yield '{}.delete_{}'.format(obj.app_label, obj.model_name)
+        yield '{}.change_{}'.format(tgt.app_label, tgt.model_name)
 
     def get_success_url(self):
         return self.object.content_object.get_absolute_url()
 
 
-class RuleToggle(LoginRequiredMixin, View):
+class RuleToggle(PromgenPermissionMixin, SingleObjectMixin, View):
+    model = models.Rule
+
+    def get_permission_denied_message(self):
+        return 'Unable to toggle rule %s. User lacks permission' % self.object
+
+    def get_permission_required(self):
+        # In the case of rules, we want to make sure the user has permission
+        # to delete the rule itself, but also permission to change the linked object
+        self.object = self.get_object()
+        obj = self.object._meta
+        tgt = self.object.content_object._meta
+
+        yield '{}.change_{}'.format(obj.app_label, obj.model_name)
+        yield '{}.change_{}'.format(tgt.app_label, tgt.model_name)
+
     def post(self, request, pk):
-        rule = get_object_or_404(models.Rule, id=pk)
-        rule.enabled = not rule.enabled
-        rule.save()
-        return JsonResponse({'redirect': rule.content_object.get_absolute_url()})
+        self.object.enabled = not self.object.enabled
+        self.object.save()
+        return JsonResponse({'redirect': self.object.content_object.get_absolute_url()})
 
 
 class HostDelete(LoginRequiredMixin, DeleteView):
@@ -600,7 +649,20 @@ class ServiceUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'promgen/service_form.html'
 
 
-class RuleUpdate(LoginRequiredMixin, UpdateView):
+class RuleUpdate(PromgenPermissionMixin, UpdateView):
+    def get_permission_denied_message(self):
+        return 'Unable to edit rule %s. User lacks permission' % self.object
+
+    def get_permission_required(self):
+        # In the case of rules, we want to make sure the user has permission
+        # to change the rule itself, but also permission to change the linked object
+        self.object = self.get_object()
+        obj = self.object._meta
+        tgt = self.object.content_object._meta
+
+        yield '{}.change_{}'.format(obj.app_label, obj.model_name)
+        yield '{}.change_{}'.format(tgt.app_label, tgt.model_name)
+
     queryset = models.Rule.objects.prefetch_related(
         'content_object',
         'overrides',
@@ -660,10 +722,19 @@ class RuleUpdate(LoginRequiredMixin, UpdateView):
         return self.form_valid(form)
 
 
-class RuleRegister(LoginRequiredMixin, FormView, ServiceMixin):
+class RuleRegister(PromgenPermissionMixin, FormView, ServiceMixin):
     model = models.Rule
     template_name = 'promgen/rule_register.html'
     form_class = forms.NewRuleForm
+
+    def get_permission_required(self):
+        # In the case of rules, we want to make sure the user has permission
+        # to add the rule itself, but also permission to change the linked object
+        yield 'promgen.add_rule'
+        if self.kwargs['content_type'] == 'site':
+            yield 'sites.change_site'
+        else:
+            yield 'promgen.change_' + self.kwargs['content_type']
 
     def get_context_data(self, **kwargs):
         context = super(RuleRegister, self).get_context_data(**kwargs)
@@ -708,7 +779,7 @@ class RuleRegister(LoginRequiredMixin, FormView, ServiceMixin):
         return self.form_invalid(form)
 
 
-class ServiceRegister(LoginRequiredMixin, FormView):
+class ServiceRegister(LoginRequiredMixin, ShardMixin, FormView):
     button_label = _('Service Register')
     form_class = forms.ServiceRegister
     model = models.Service
@@ -788,8 +859,7 @@ class HostRegister(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         farm = get_object_or_404(models.Farm, id=self.kwargs['pk'])
-        for hostname in form.clean()['hosts'].split('\n'):
-            hostname = hostname.strip()
+        for hostname in re.split('[,\s]+', form.clean()['hosts']):
             if hostname == '':
                 continue
 
@@ -800,6 +870,8 @@ class HostRegister(LoginRequiredMixin, FormView):
             if created:
                 logger.debug('Added %s to %s', host.name, farm.name)
 
+        if farm.project_set.count() == 0:
+            return HttpResponseRedirect(reverse('farm-detail', args=[farm.id]))
         return HttpResponseRedirect(reverse('project-detail', args=[farm.project_set.first().id]))
 
 
@@ -888,9 +960,10 @@ class URLConfig(View):
 
 class Alert(View):
     def post(self, request, *args, **kwargs):
-        body = request.body.decode('utf-8')
-        for entry in plugins.notifications():
-            entry.load().process(body)
+        alert = models.Alert.objects.create(
+            body=request.body.decode('utf-8')
+        )
+        tasks.process_alert.delay(alert.pk)
         return HttpResponse('OK', status=202)
 
 
@@ -995,9 +1068,15 @@ class Search(LoginRequiredMixin, View):
         return render(request, 'promgen/search.html', context)
 
 
-class RuleImport(LoginRequiredMixin, FormView):
+class RuleImport(PromgenPermissionMixin, FormView):
     form_class = forms.ImportRuleForm
     template_name = 'promgen/rule_import.html'
+
+    # Since rule imports can change a lot of site wide stuff we
+    # require site edit permission here
+    permission_required = ('sites.change_site', 'promgen.change_rule')
+    permisison_denied_message = 'User lacks permission to import'
+
 
     def form_valid(self, form):
         data = form.clean()
@@ -1018,9 +1097,17 @@ class RuleImport(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 
 
-class Import(LoginRequiredMixin, FormView):
+class Import(PromgenPermissionMixin, FormView):
     template_name = 'promgen/import_form.html'
     form_class = forms.ImportConfigForm
+
+    # Since imports can change a lot of site wide stuff we
+    # require site edit permission here
+    permission_required = (
+        'sites.change_site', 'promgen.change_rule', 'promgen.change_exporter'
+    )
+
+    permission_denied_message = 'User lacks permission to import'
 
     def form_valid(self, form):
         data = form.clean()
@@ -1158,17 +1245,9 @@ class RuleTest(LoginRequiredMixin, View):
             rule = get_object_or_404(models.Rule, id=pk)
 
         query = macro.rulemacro(request.POST['query'], rule)
-
-        # TODO: Refactor out similar to ProxyQueryRange
-        # This is the only place where we currently have to deal with getting a
-        # url based on the rule type but we want to remove this special case
-        # soon
-        if rule.content_type.model == 'service':
-            url = '{}/api/v1/query'.format(rule.content_object.shard.url)
-        if rule.content_type.model == 'project':
-            url = '{}/api/v1/query'.format(rule.content_object.service.shard.url)
-        if rule.content_type.model == 'site':
-            url = '{}/api/v1/query'.format(models.Shard.objects.first().url)
+        # Since our rules affect all servers we use Promgen's proxy-query to test our rule
+        # against all the servers at once
+        url = resolve_domain('proxy-query')
 
         logger.debug('Querying %s with %s', url, query)
         start = time.time()
@@ -1256,6 +1335,18 @@ class PrometheusProxy(View):
         }
 
 
+class ProxyGraph(TemplateView):
+    template_name = "promgen/graph.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProxyGraph, self).get_context_data(**kwargs)
+        context['shard_list'] = models.Shard.objects.filter(proxy=True)
+        for k, v in self.request.GET.items():
+            _, k = k.split('.')
+            context[k] = v
+        return context
+
+
 class ProxyLabel(PrometheusProxy):
     def get(self, request, label):
         data = set()
@@ -1318,6 +1409,38 @@ class ProxyQueryRange(PrometheusProxy):
         with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
             for host in models.Shard.objects.filter(proxy=True):
                 futures.append(executor.submit(util.get, '{}/api/v1/query_range?{}'.format(host.url, request.META['QUERY_STRING']), headers=self.headers))
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    result = future.result()
+                    # Need to try to decode the json BEFORE we raise_for_status
+                    # so that we can pass back the error message from Prometheus
+                    _json = result.json()
+                    result.raise_for_status()
+                    logger.debug('Appending data from %s', result.request.url)
+                    data += _json['data']['result']
+                    resultType = _json['data']['resultType']
+                except:
+                    logger.exception('Error with response')
+                    _json['promgen_proxy_request'] = result.request.url
+                    return JsonResponse(_json, status=result.status_code)
+
+        return JsonResponse({
+            'status': 'success',
+            'data': {
+                'resultType': resultType,
+                'result': data,
+            }
+        })
+
+
+class ProxyQuery(PrometheusProxy):
+    def get(self, request):
+        data = []
+        futures = []
+        resultType = None
+        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+            for host in models.Shard.objects.filter(proxy=True):
+                futures.append(executor.submit(util.get, '{}/api/v1/query?{}'.format(host.url, request.META['QUERY_STRING']), headers=self.headers))
             for future in concurrent.futures.as_completed(futures):
                 try:
                     result = future.result()

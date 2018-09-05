@@ -115,8 +115,10 @@ urlpatterns = [
     url(r'^api/v1/host/(?P<slug>\S+)', views.HostDetail.as_view()),
 
     # Prometheus Proxy
+    url(r'^graph', views.ProxyGraph.as_view()),
     url(r'^api/v1/label/(.+)/values', views.ProxyLabel.as_view(), name='proxy-label'),
     url(r'^api/v1/query_range', views.ProxyQueryRange.as_view()),
+    url(r'^api/v1/query', views.ProxyQuery.as_view(), name='proxy-query'),
     url(r'^api/v1/series', views.ProxySeries.as_view()),
 ]
 

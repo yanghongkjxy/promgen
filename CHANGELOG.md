@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.29 - 2018-08-28
+
+* [IMPROVEMENT] Implement Django permissions for Rule editor #96
+
+This first version implements permissions primarily for common, shared
+rules to reduce the chance of accidentally modifying the parent rule.
+In the future, permissions will be applied to more objects. Migrations
+will automatically create a Default group in the Django admin.
+
+## v0.28 - 2018-08-01
+
+* [CHANGE] Update to Django 2.0 #82
+* [CHANGES] Re-add link to shard #91
+* [IMPROVEMENT] Add /api/v1/query proxy #88
+* [IMPROVEMENT] Add help text describing job label usage #93
+* [IMPROVEMENT] RuleTest will test against all Prometheus instances #90
+
+## v0.27 - 2018-06-14
+
+* [BUGFIX] Fix parsing error with silence end date
+* [BUGFIX] Fix webhook POST data
+* [CHANGE] Update Celery version for bug fix
+* [IMPROVEMENT] Cleanup some page headers to make navigation easier
+* [IMPROVEMENT] Simple proxy page for `/graph` view
+* [IMPROVEMENT] Speed up services page with prefetch_related_objects
+* [IMPROVEMENT] Support entering comma separated list of hosts
+* [IMPROVEMENT] Support for disabling a shard (disables adding new services)
+* [IMPROVEMENT] Use css grid to improve readability of long pages
+* [IMPROVEMENT] Warn if parent rull is missing macro
+
 ## v0.26 - 2018-03-12
 * [BUGFIX] Allow STATIC_ROOT to be configured via Environment
 * [BUGFIX] Fix bytes/string mismatch with outputing rules

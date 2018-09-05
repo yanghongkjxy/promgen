@@ -31,16 +31,16 @@ setup(
     ],
     install_requires=[
         'atomicwrites',
-        'celery[redis]==4.1.0',
+        'celery[redis]==4.1.1',
         'dj-database-url',
-        'Django >= 1.11, < 1.12',
+        'Django >= 2.0, < 2.1',
         'envdir',
         'prometheus-client',
         'python-dateutil',
         'pyyaml',
         'raven',
         'requests',
-        'social-auth-app-django',
+        'social-auth-app-django >= 2.0.0',
     ],
     include_package_data=True,
     extras_require={
@@ -53,7 +53,8 @@ setup(
         'docs': [
             'Sphinx',
             'sphinxcontrib-httpdomain',
-        ]
+        ],
+        'mysql': ['mysqlclient'],
     },
     entry_points={
         'console_scripts': [

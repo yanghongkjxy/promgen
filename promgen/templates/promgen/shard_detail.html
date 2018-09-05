@@ -11,11 +11,10 @@ Promgen / Shard / {{ shard.name }}
 
 <div class="page-header">
   <h1>Shard: {{ shard.name }}</h1>
+  <a href="{{shard.url}}">{{shard.url}}</a>
 </div>
 
-<div class="well">
-  <a href="{% url 'service-new' shard.id %}" class="btn btn-primary">{% trans "Register Service" %}</a>
-</div>
+{% include 'promgen/shard_header.html' %}
 
 {% for service in shard.service_set.all %}
 <h2><a href="{% url 'service-detail' service.id %}">{{ service.name }}</a></h2>

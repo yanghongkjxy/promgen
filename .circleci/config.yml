@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    branches:
+      ignore:
+        - gh-pages
+    docker:
+      - image: python:3.5.3-alpine
+        environment:
+          SECRET_KEY: abcd
+    steps:
+      - checkout
+      - run: pip install -e .[dev]
+      - run: promgen test
+      - run: coverage html -d test-results
+      - run: codecov
+      - store_test_results:
+          path: test-results
